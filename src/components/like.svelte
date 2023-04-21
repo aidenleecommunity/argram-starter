@@ -14,15 +14,30 @@
   let likes = {};
 
   async function likePost() {
-    // write code for liking posts
+    const res = await writeContractWOthent({
+      othentFunction: "sendTransaction",
+      data: {
+        toContractId: id,
+        toContractFunction: "likePost",
+        txnData: {
+          function: "likePost",
+        },
+      },
+    });
+
+    likes = await readLikes();
   }
 
   async function readLikes() {
-    // write code for reading likes
+    const res = await readContractWOthent({
+      contractTxId: id,
+    });
+
+    return res.state["likes"];
   }
 
   onMount(async () => {
-    // write code for fetching and rendering likes on component first time render
+    likes = await readLikes();
   });
 </script>
 

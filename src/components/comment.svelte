@@ -25,15 +25,44 @@
   let errorDlg = false;
 
   async function addComment(e) {
-    // write code for adding comments on posts
+    try {
+      deployDlg = true;
+
+      const res = await writeContractWOthent({
+        othentFunction: "sendTransaction",
+        data: {
+          toContractId: id,
+          toContractFunction: "addComment",
+          txnData: {
+            function: "addComment",
+            username: $profile
+            ? $profile.given_name + " " + $profile.family_name
+            : "",
+            comment: comments [id],
+          },
+        },
+      });
+      deployDlg = false;
+      e.target.reset();
+
+      commentsArray = await readComments();
+    } catch (e) {
+      deployDlg = false;
+      errorMessage = e.message;
+      errorDlg = true;
+    }
   }
 
   async function readComments() {
-    // write code for reading comments
+    const res = await readContractWOthent({
+      contractTxId: id,
+    });
+
+    return res.state["comments"];
   }
 
   onMount(async () => {
-    // write code for fetching comments on component first time render
+    commentsArray = await readComments();
   });
 </script>
 

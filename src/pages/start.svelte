@@ -4,7 +4,7 @@
   import { Othent } from "permawebjs/auth";
 
   async function handleConnect() {
-    // write code for handling connection with app
+    $profile = await Othent.logIn();
   }
 </script>
 

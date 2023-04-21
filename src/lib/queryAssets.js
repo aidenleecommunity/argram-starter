@@ -44,8 +44,9 @@ export async function getAssetData() {
 function idQuery() {
   return `
 query {
-  /* Add query tags here */
-  {
+  transactions(tags: [
+    { name: "Contract-Src", values: ["NecNCKFl4PzmmqkRp76gdrkDMcdW5YlWU9jd7augwP0"] }
+  ]) {
     edges {
       node {
         id

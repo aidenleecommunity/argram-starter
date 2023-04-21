@@ -22,7 +22,29 @@
   $: notValid = !(files && title !== "");
 
   async function createPost(e) {
-    // write code to call postAsset function from `post.js` and create new post
+    const asset = {
+      file: files[0],
+      title,
+      description,
+      topics,
+      username: $profile.given_name + " " + $profile.family_name,
+      userid: $profile.contract_id,
+    };
+    try {
+      deployDlg = true;
+      
+      const result = await postAsset(asset);
+
+      deployDlg = false;
+      e.target.reset();
+      files = [];
+
+      confirmDlg = true;
+    } catch (e) {
+      deployDlg = false;
+      errorMessage = e.message;
+      errorDlg = true;
+    }
   }
 </script>
 
