@@ -33,7 +33,6 @@ export async function postAsset(asset) {
     map(trim, split(',', asset.topics)).forEach(t => {
         inputTags.push({ name: 'Topic:' + t, value: t});
     });
-}
 
 const { jwk } = await warp.generateWallet();
 
